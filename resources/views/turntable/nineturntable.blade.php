@@ -8,15 +8,15 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="{{ admin_asset("/vendor/laravel-admin/AdminLTE/bootstrap/css/bootstrap.min.css") }}">
-    <link rel="stylesheet" href="{{ admin_asset("/vendor/laravel-admin/sweetalert/dist/sweetalert.css") }}">
-    <link rel="stylesheet" href="{{ admin_asset("/vendor/laravel-admin/toastr/build/toastr.min.css") }}">
-    <link rel="stylesheet" href="{{ admin_asset("/turntable/swiper.min.css") }}">
-    <link rel="stylesheet" href="{{ admin_asset("/turntable/commonmobile.css") }}">
-    <link rel="stylesheet" href="{{ admin_asset("/turntable/index.css") }}">
+    <link rel="stylesheet" href="{{ admin_asset('/vendor/laravel-admin/AdminLTE/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ admin_asset('/vendor/laravel-admin/sweetalert/dist/sweetalert.css') }}">
+    <link rel="stylesheet" href="{{ admin_asset('/vendor/laravel-admin/toastr/build/toastr.min.css') }}">
+    <link rel="stylesheet" href="{{ admin_asset('/turntable/swiper.min.css') }}">
+    <link rel="stylesheet" href="{{ admin_asset('/turntable/commonmobile.css') }}">
+    <link rel="stylesheet" href="{{ admin_asset('/turntable/index.css') }}">
     <link rel="stylesheet" href="https://cdn.bootcss.com/weui/1.1.2/style/weui.min.css">
     <link rel="stylesheet" href="https://cdn.bootcss.com/jquery-weui/1.2.0/css/jquery-weui.min.css">
-    <script src="{{ admin_asset("/vendor/laravel-admin/AdminLTE/plugins/jQuery/jQuery-2.1.4.min.js")}} "></script>    
+    <script src="{{ admin_asset('/vendor/laravel-admin/AdminLTE/plugins/jQuery/jQuery-2.1.4.min.js')}} "></script>    
   </head>
   <!-- 移动端适配 -->
   <script>
@@ -92,12 +92,12 @@
         @include('turntable.share')
     @endif
     <!-- Bootstrap 3.3.5 -->    
-    <script src="{{ admin_asset("/turntable/swiper.jquery.min.js")}}"></script>
-    <script src="{{ admin_asset("/vendor/laravel-admin/AdminLTE/bootstrap/js/bootstrap.min.js")}}"></script>
-    <script src="{{ admin_asset("/vendor/laravel-admin/sweetalert/dist/sweetalert.min.js")}}"></script>
-    <script src="{{ admin_asset("/vendor/laravel-admin/toastr/build/toastr.min.js")}}"></script>
-    <script src="{{ admin_asset("/turntable/h5_game_common.js")}}"></script>
-    <script src="{{ admin_asset("/turntable/index.js")}}"></script>
+    <script src="{{ admin_asset('/turntable/swiper.jquery.min.js')}}"></script>
+    <script src="{{ admin_asset('/vendor/laravel-admin/AdminLTE/bootstrap/js/bootstrap.min.js')}}"></script>
+    <script src="{{ admin_asset('/vendor/laravel-admin/sweetalert/dist/sweetalert.min.js')}}"></script>
+    <script src="{{ admin_asset('/vendor/laravel-admin/toastr/build/toastr.min.js')}}"></script>
+    <script src="{{ admin_asset('/turntable/h5_game_common.js')}}"></script>
+    <script src="{{ admin_asset('/turntable/index.js')}}"></script>
     
    </body>
 </html>

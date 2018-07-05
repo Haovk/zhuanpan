@@ -11,7 +11,7 @@
         </div>
     </div>
 </div>
-<script src="{{ admin_asset("/turntable/jquery.bootstrap.newsbox.min.js")}} "></script>
+<script src="{{ admin_asset('/turntable/jquery.bootstrap.newsbox.min.js')}} "></script>
 <script>
 $(function(){
     $(".demo2").bootstrapNews({
