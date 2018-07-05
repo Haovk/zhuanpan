@@ -30,6 +30,7 @@
         }
     </script>
 <body style="background: {{$turntable->BackColor}};">
+{{Log::info('页面进入')}}
 <audio id="bgmusic" autoplay="autoplay" loop="loop">
     <source src="{{ Storage::disk('admin')->url($turntable->BackMusicPath) }}" type="audio/mp3">
     您的浏览器不支持 audio 标签。
@@ -46,6 +47,7 @@
         <span class="stars"></span>
         <span class="stars"></span>
     </div>
+    
     <!--主体-->
     <div class="main">
         <!--游戏区域-->
