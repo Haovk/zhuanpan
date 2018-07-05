@@ -31,7 +31,7 @@ class NineTurntableController extends Controller
         Log::info('用户信息'.json_encode($tuser));
         if (!$tuser) { 
             Log::info('用户不存在');           
-            if ($turntable->IsPlaceUserNumber&&$turntable->turntableUsers->count()>=$turntable->UserNumber) {
+            if ($turntable->IsPlaceUserNumber==1&&$turntable->turntableUsers->count()>=$turntable->UserNumber) {
                 Log::info('转盘用户上限');  
                 //是否限制参与人数且参与人数已经达到设定值
                 return view('turntable.turntabletongzhi', ['msg'=>'该转盘用户已达到上限']);
@@ -44,7 +44,7 @@ class NineTurntableController extends Controller
             $tuser=$newTUser;
             $turntable->turntableUsers()->save($newTUser);
         }
-        if ($turntable->IsShare) {
+        if ($turntable->IsShare==1) {
             Log::info('分享开启');  
             $app = app('wechat.official_account');
             return view('turntable.nineturntable', ['app'=>$app,'turntable'=>$turntable,'tuser'=>$tuser]);
@@ -57,7 +57,7 @@ class NineTurntableController extends Controller
         $user = session('wechat.oauth_user.default');
         $turntable=Turntable::find($request->id);
         $tuser=$turntable->turntableUsers->where('OpenId', $user->id)->first();
-        if ($turntable->IsShare&&$tuser->ShareNumber>0) {
+        if ($turntable->IsShare==1&&$tuser->ShareNumber>0) {
             //该转盘允许分享
             //该用户剩余分享次数
             $tuser->ShareNumber--;
@@ -106,7 +106,7 @@ class NineTurntableController extends Controller
             $tuser->save();
             
             //判断是否限制中奖次数且中奖次数是否达到设定值
-            if ($turntable->IsPlacePrizeNumber&&$tuser->prizeLogs->count()>=$turntable->PrizeNumber) {
+            if ($turntable->IsPlacePrizeNumber==1&&$tuser->prizeLogs->count()>=$turntable->PrizeNumber) {
                 //符合条件一律指定为未中奖
                 $nprize=$turntable->prizes->where('IsExChange', 0)->first();
                 if ($nprize) {
@@ -116,7 +116,7 @@ class NineTurntableController extends Controller
             
             $prize = $turntable->prizes->find($prizeRatesById[$item]);
             //判断单个奖品的中奖人数是否限制且是否达到设定值
-            if ($prize->IsLimitPrizeUserNumber&&$prize->PrizeUserNumber>=$prize->PrizeUserNumberLimit) {
+            if ($prize->IsLimitPrizeUserNumber==1&&$prize->PrizeUserNumber>=$prize->PrizeUserNumberLimit) {
                 //符合条件一律指定为未中奖
                 $nprize=$turntable->prizes->where('IsExChange', 0)->first();
                 if ($nprize) {
@@ -145,7 +145,7 @@ class NineTurntableController extends Controller
         }
         else
         {
-            if ($turntable->IsShare) {
+            if ($turntable->IsShare==1) {
                 $msgArr=['Status'=>20002,'Item'=>-1,'Message'=>'转盘次数不足,每日分享链接可获得额外的抽奖次数'];
             } else {
                 $msgArr=['Status'=>20002,'Item'=>-1,'Message'=>'转盘次数不足'];
