@@ -16,7 +16,7 @@ class Prize extends Model
      * @var array
      */
     protected $fillable = [
-        'PrizeName','PrizeRate','PrizeUserNumber','ImageUrlPath',
+        'PrizeName','IsExChange','ExpiresDay','PrizeRate','PrizeUserNumber','ImageUrlPath',
         'PrizeUserNumberLimit','IsLimitPrizeUserNumber','ShowImageUrlPath',
     ];
 
