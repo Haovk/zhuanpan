@@ -47,7 +47,7 @@ class NineTurntableController extends Controller
         if ($turntable->IsShare==1) {
             Log::info('分享开启');
             $app = app('wechat.official_account');
-            Log::info(view('turntable.nineturntable', ['app'=>$app,'turntable'=>$turntable,'tuser'=>$tuser])->getContent());
+            //Log::info(view('turntable.nineturntable', ['app'=>$app,'turntable'=>$turntable,'tuser'=>$tuser])->getContent());    
             return view('turntable.nineturntable', ['app'=>$app,'turntable'=>$turntable,'tuser'=>$tuser])->getContent();
         }
         Log::info('请求结束');     
