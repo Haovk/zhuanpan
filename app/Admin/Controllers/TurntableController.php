@@ -148,8 +148,8 @@ class TurntableController extends Controller
                 $form->number('ShareNumber', '每日分享获得转盘次数')->default(1);
                 $form->image('ShareImagePath', '分享图标')->help('要求100*100的PNG图片');
             })->tab('奖品设置', function ($form) {
-                $form->hasMany('prizes', '奖品列表', function (Form\NestedForm $form) {
-                    $form->display('说明', '说明')->default('保证奖品个数为8个(空也是奖品),中奖概率合为100%');
+                $form->display('说明', '说明')->default('保证奖品个数为8个(空也是奖品),中奖概率合为100%');
+                $form->hasMany('prizes', '奖品列表', function (Form\NestedForm $form) {                    
                     $states = [
                         'on'  => ['value' => 1, 'text' => '启用', 'color' => 'success'],
                         'off' => ['value' => 0, 'text' => '停用', 'color' => 'danger'],
