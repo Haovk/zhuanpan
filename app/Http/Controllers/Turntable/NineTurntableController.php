@@ -20,14 +20,19 @@ class NineTurntableController extends Controller
     {
         $user = session('wechat.oauth_user.default');
         Log::info(Carbon::now());
-        $turntable=Turntable::where([['StartTime','<=',Carbon::now()],['EndTime','>=',Carbon::now()],['Id','=',$request->id]])
+        $turntable=Turntable::where([['Id','=',$request->id],['StartTime','<=',Carbon::now()],['EndTime','>=',Carbon::now()]])
         ->first();
+        Log::info('转盘信息'.json_encode($turntable));
         if (!$turntable) {
+            Log::info('转盘不存在');
             return view('turntable.turntabletongzhi', ['msg'=>'转盘已过期或没有该转盘']);
         }
         $tuser=$turntable->turntableUsers->where('OpenId', $user->id)->first();
-        if (!$tuser) {            
+        Log::info('用户信息'.json_encode($tuser));
+        if (!$tuser) { 
+            Log::info('用户不存在');           
             if ($turntable->IsPlaceUserNumber&&$turntable->turntableUsers->count()>=$turntable->UserNumber) {
+                Log::info('转盘用户上限');  
                 //是否限制参与人数且参与人数已经达到设定值
                 return view('turntable.turntabletongzhi', ['msg'=>'该转盘用户已达到上限']);
             }
@@ -40,9 +45,11 @@ class NineTurntableController extends Controller
             $turntable->turntableUsers()->save($newTUser);
         }
         if ($turntable->IsShare) {
+            Log::info('分享开启');  
             $app = app('wechat.official_account');
             return view('turntable.nineturntable', ['app'=>$app,'turntable'=>$turntable,'tuser'=>$tuser]);
         }
+        Log::info('请求结束');     
         return view('turntable.nineturntable', ['turntable'=>$turntable,'tuser'=>$tuser]);
     }
     public function shareinfo(Request $request)
