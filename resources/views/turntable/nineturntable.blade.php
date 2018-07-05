@@ -69,7 +69,7 @@
                 </li>
             </ul>
             <!--九宫格-->
-            @include('turntable.prizes')
+            <!-- @include('turntable.prizes') -->
         </div>
 		<div class="">
 		</div>
