@@ -160,7 +160,7 @@ class TurntableController extends Controller
                     $form->number('ExpiresDay','过期天数')->default(1);
                     $form->switch('IsLimitPrizeUserNumber', '是否限制中奖人数')->states($states);
                     $form->number('PrizeUserNumber','已中奖人数');
-                    $form->number('PrizeUserNumberLimit','中奖人数上限');                    
+                    $form->number('PrizeUserNumberLimit','中奖人数上限');
                     $form->image('ImageUrlPath', '奖品图片')->help('要求191*140的PNG图片');
                     $form->image('ShowImageUrlPath', '中奖奖品图片')->help('要求490*290的PNG图片');
                 });
