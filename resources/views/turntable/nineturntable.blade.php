@@ -81,14 +81,14 @@
     <!--转盘过期时间-->
     @include('turntable.turntableouttime')
     <!--所有玩家中奖记录-->
-    @if($turntable->IsShowPrizeName)
+    @if($turntable->IsShowPrizeName==1)
         @include('turntable.prizeslog')
     @endif
     <!--转盘相关说明-->
     @include('turntable.turntableinfo')
 </div>
     <!--分享模块-->
-    @if($turntable->IsShare)
+    @if($turntable->IsShare==1)
         @include('turntable.share')
     @endif
     <!-- Bootstrap 3.3.5 -->    
