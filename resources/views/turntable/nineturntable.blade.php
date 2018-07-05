@@ -30,13 +30,13 @@
         }
     </script>
 <body style="background: {{$turntable->BackColor}};">
-<audio id="bgmusic" autoplay="autoplay" loop="loop">
+<!-- <audio id="bgmusic" autoplay="autoplay" loop="loop">
     <source src="{{ Storage::disk('admin')->url($turntable->BackMusicPath) }}" type="audio/mp3">
     您的浏览器不支持 audio 标签。
-</audio>
+</audio> -->
 <div id="wrap" style="{{'background-image: url("'.Storage::disk("admin")->url($turntable->BackImagePath).'");'}}">
     <!--我的奖品-->
-    @include('turntable.myprizes')
+    <!-- @include('turntable.myprizes') -->
     <div class="stars-box">
         <span class="stars"></span>
         <span class="stars"></span>
@@ -75,22 +75,22 @@
 		</div>
     </div>
     <!--中奖提示-->
-    @include('turntable.prizetips')
+    <!-- @include('turntable.prizetips') -->
 </div>
 <div style="margin-top: -2.0rem;position: relative;">
     <!--转盘过期时间-->
-    @include('turntable.turntableouttime')
+    <!-- @include('turntable.turntableouttime') -->
     <!--所有玩家中奖记录-->
-    @if($turntable->IsShowPrizeName==1)
+    <!-- @if($turntable->IsShowPrizeName==1)
         @include('turntable.prizeslog')
-    @endif
+    @endif -->
     <!--转盘相关说明-->
-    @include('turntable.turntableinfo')
+    <!-- @include('turntable.turntableinfo') -->
 </div>
     <!--分享模块-->
-    @if($turntable->IsShare==1)
+    <!-- @if($turntable->IsShare==1)
         @include('turntable.share')
-    @endif
+    @endif -->
     <!-- Bootstrap 3.3.5 -->    
     <script src="{{ admin_asset('/turntable/swiper.jquery.min.js')}}"></script>
     <script src="{{ admin_asset('/vendor/laravel-admin/AdminLTE/bootstrap/js/bootstrap.min.js')}}"></script>
