@@ -19,9 +19,7 @@ class NineTurntableController extends Controller
     public function index(Request $request)
     {
         $user = session('wechat.oauth_user.default');
-        $turntable=Turntable::where('StartTime','<=',Carbon::now())
-        ->where('EndTime','>=',Carbon::now())
-        ->where('Id',$request->id)
+        $turntable=Turntable::where([['StartTime','<=',Carbon::now()],['EndTime','>=',Carbon::now()],['Id','=',$request->id]])
         ->first();
         if (!$turntable) {
             return view('turntable.turntabletongzhi', ['msg'=>'转盘已过期或没有该转盘']);
