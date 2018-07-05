@@ -115,7 +115,7 @@ class TurntableController extends Controller
             $form->tab('转盘说明', function ($form) {
                 $form->text('Name', '转盘名称')->rules('required');
                 $form->datetimeRange('StartTime', 'EndTime', '活动时间范围')->rules('required');
-                $form->image('BackImagePath', '背景图片');
+                $form->image('BackImagePath', '背景图片')->help('要求750*1200的PNG图片');
                 $form->color('BackColor', '背景色')->default('#ccc')->help('转盘页面最底部背景色');
                 $form->editor('FullInfo', '活动介绍');
                 $form->editor('RuleInfo', '规则说明');
@@ -146,7 +146,7 @@ class TurntableController extends Controller
                 $form->text('ShareTitle', '分享标题');
                 $form->text('ShareContent', '分享说明');
                 $form->number('ShareNumber', '每日分享获得转盘次数')->default(1);
-                $form->image('ShareImagePath', '分享图标');
+                $form->image('ShareImagePath', '分享图标')->help('要求100*100的PNG图片');
             })->tab('奖品设置', function ($form) {
                 $form->hasMany('prizes', '奖品列表', function (Form\NestedForm $form) {
                     $form->display('说明', '说明')->default('保证奖品个数为8个(空也是奖品),中奖概率合为100%');
@@ -161,8 +161,8 @@ class TurntableController extends Controller
                     $form->switch('IsLimitPrizeUserNumber', '是否限制中奖人数')->states($states);
                     $form->number('PrizeUserNumber','已中奖人数');
                     $form->number('PrizeUserNumberLimit','中奖人数上限');                    
-                    $form->image('ImageUrlPath', '奖品图片');
-                    $form->image('ShowImageUrlPath', '中奖奖品图片');
+                    $form->image('ImageUrlPath', '奖品图片')->help('要求191*140的PNG图片');
+                    $form->image('ShowImageUrlPath', '中奖奖品图片')->help('要求490*290的PNG图片');
                 });
             });
             
