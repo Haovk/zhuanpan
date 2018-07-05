@@ -19,6 +19,7 @@ class NineTurntableController extends Controller
     public function index(Request $request)
     {
         $user = session('wechat.oauth_user.default');
+        Log::info(Carbon::now());
         $turntable=Turntable::where([['StartTime','<=',Carbon::now()],['EndTime','>=',Carbon::now()],['Id','=',$request->id]])
         ->first();
         if (!$turntable) {
