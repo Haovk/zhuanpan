@@ -68,7 +68,7 @@
         <div class="flex-center position-ref full-height">
             <div class="content">
                 <div class="title m-b-md">
-                    该活动已人数达到上限
+                    {{$msg}}
                 </div>
             </div>
         </div>

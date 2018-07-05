@@ -22,12 +22,15 @@ class NineTurntableController extends Controller
         $turntable=Turntable::where('StartTime','<=',Carbon::now())
         ->where('EndTime','>=',Carbon::now())
         ->where('Id',$request->id)
-        ->firstOrFail();
+        ->first();
+        if (!$turntable) {
+            return view('turntable.turntabletongzhi', ['msg'=>'转盘已过期或没有该转盘']);
+        }
         $tuser=$turntable->turntableUsers->where('OpenId', $user->id)->first();
         if (!$tuser) {            
             if ($turntable->IsPlaceUserNumber&&$turntable->turntableUsers->count()>=$turntable->UserNumber) {
                 //是否限制参与人数且参与人数已经达到设定值
-                return view('turntable.turntabletongzhi');
+                return view('turntable.turntabletongzhi', ['msg'=>'该转盘用户已达到上限']);
             }
             $newTUser=new TurntableUser([
                 'OpenId'=>$user->id,
