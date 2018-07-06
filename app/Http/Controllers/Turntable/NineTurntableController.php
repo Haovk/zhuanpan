@@ -83,9 +83,7 @@ class NineTurntableController extends Controller
     }
     public function bindUser(Request $request)
     {
-        $app = app('wechat.official_account');
-        $user = $app->oauth->user();
-        //$user = session('wechat.oauth_user.default');
+        $user = session('wechat.oauth_user.default');
         $msgArr=['Status'=>20001,'Message'=>'绑定错误'];
         $turntable=Turntable::find($request->id);
         $tuser=$turntable->turntableUsers->where('OpenId', $user->id)->first();
