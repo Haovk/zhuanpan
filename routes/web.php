@@ -14,8 +14,8 @@
 Route::get('/', function () {
     return view('welcome');
 });
-
-Route::any('/nineturntable', 'Turntable\NineTurntableController@index');    
+Route::any('/nineturntable/auth', 'Turntable\NineTurntableController@auth');
+Route::any('/nineturntable', 'Turntable\NineTurntableController@index');
 Route::any('/nineturntable/getitem', 'Turntable\NineTurntableController@getitem');
 Route::any('/nineturntable/bindUser', 'Turntable\NineTurntableController@bindUser');
 Route::any('/nineturntable/shareinfo', 'Turntable\NineTurntableController@shareinfo');

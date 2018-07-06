@@ -1,6 +1,5 @@
 
 <div class="">
-<div class="text-center  turntableinfotop">中奖名单</div>
     <div class="panel-body">
         <div class="row">
             <div class="col-xs-12">

@@ -18,26 +18,26 @@ class NineTurntableController extends Controller
 {
     public function auth(Request $request)
     {
-        if (!isset($request->code)) {
-            $url=trim(config('app.url'),'/').'/nineturntable';
-            $authurl=config('wechat.unifiedauthurl');
-            return redirect(trim($authurl,'/').'/wxauth/auth?redirecturi='.$url);
+        if (isset($request->code)) {
+            $app = app('wechat.official_account');
+            //回调后获取user时也要设置$request对象
+            $user = $app->oauth->user();
+            session()->put('wechat.oauth_user.default',$user);
+            return route('/nineturntable',['id'=>$request->id]);
         }
+        //$url=trim(config('app.url'),'/').'/nineturntable'; 
+        $url=urlencode($request->getUri());
+        $authurl=config('wechat.unifiedauthurl');
+        Log::info(trim($authurl,'/').'/wxauth/auth?redirecturi='.$url);
+        return redirect(trim($authurl,'/').'/wxauth/auth?redirecturi='.$url);
+        
     }
     public function index(Request $request)
     {
-        if (!isset($request->code)) {
-            //$url=trim(config('app.url'),'/').'/nineturntable'; 
-            $url=urlencode($request->getUri());
-            $authurl=config('wechat.unifiedauthurl');
-            Log::info(trim($authurl,'/').'/wxauth/auth?redirecturi='.$url);
-            return redirect(trim($authurl,'/').'/wxauth/auth?redirecturi='.$url);
+        $user = session('wechat.oauth_user.default');
+        if (!isset($user)&&!$user) {
+            return route('/nineturntable/auth', ['id'=>$request->id]);
         }
-        $app = app('wechat.official_account');
-        //回调后获取user时也要设置$request对象
-        $user = $app->oauth->user();
-        
-        session()->put('wechat.oauth_user.default',$user);
         //$user=session('wechat.oauth_user.default');
         $turntable=Turntable::where([['Id','=',$request->id],['StartTime','<=',Carbon::now()],['EndTime','>=',Carbon::now()]])
         ->first();
