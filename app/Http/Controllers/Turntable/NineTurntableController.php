@@ -23,7 +23,7 @@ class NineTurntableController extends Controller
             //回调后获取user时也要设置$request对象
             $user = $app->oauth->user();
             session()->put('wechat.oauth_user.default',$user);
-            return route('/nineturntable',['id'=>$request->id]);
+            return route('thome',['id'=>$request->id]);
         }
         //$url=trim(config('app.url'),'/').'/nineturntable'; 
         $url=urlencode($request->getUri());
@@ -36,7 +36,7 @@ class NineTurntableController extends Controller
     {
         $user = session('wechat.oauth_user.default');
         if (!isset($user)&&!$user) {
-            return route('/nineturntable/auth', ['id'=>$request->id]);
+            return route('wxauth', ['id'=>$request->id]);
         }
         //$user=session('wechat.oauth_user.default');
         $turntable=Turntable::where([['Id','=',$request->id],['StartTime','<=',Carbon::now()],['EndTime','>=',Carbon::now()]])
