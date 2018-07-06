@@ -36,6 +36,7 @@ class NineTurntableController extends Controller
         $app = app('wechat.official_account');
         //回调后获取user时也要设置$request对象
         $user = $app->oauth->user();
+        session('wechat.oauth_user.default',$user);
         //$user=session('wechat.oauth_user.default');
         $turntable=Turntable::where([['Id','=',$request->id],['StartTime','<=',Carbon::now()],['EndTime','>=',Carbon::now()]])
         ->first();
