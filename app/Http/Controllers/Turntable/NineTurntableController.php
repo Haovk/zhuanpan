@@ -18,10 +18,10 @@ class NineTurntableController extends Controller
 {
     public function index(Request $request)
     {
-        $app = app('wechat.official_account');        
+        //$app = app('wechat.official_account');        
         //回调后获取user时也要设置$request对象
         //$user = $app->oauth->user();
-        $user=session('wechat.oauth_user.default');
+        //$user=session('wechat.oauth_user.default');
         Log::info(Carbon::now());
         $turntable=Turntable::where([['Id','=',$request->id],['StartTime','<=',Carbon::now()],['EndTime','>=',Carbon::now()]])
         ->first();
@@ -30,10 +30,10 @@ class NineTurntableController extends Controller
             Log::info('转盘不存在');
             return view('turntable.turntabletongzhi', ['msg'=>'转盘已过期或没有该转盘']);
         }
-        $tuser=$turntable->turntableUsers->where('OpenId', $user->id)->first();
+        $tuser=$turntable->turntableUsers->where('OpenId', 'opHtjtyZvH46Niy64-Xx6vn6OWmU')->first();
         Log::info('用户信息'.json_encode($tuser));
         if (!$tuser) { 
-            Log::info('用户不存在');           
+            Log::info('用户不存在');
             if ($turntable->IsPlaceUserNumber==1&&$turntable->turntableUsers->count()>=$turntable->UserNumber) {
                 Log::info('转盘用户上限');  
                 //是否限制参与人数且参与人数已经达到设定值

@@ -93,14 +93,14 @@
     @if($turntable->IsShare==1)
         @include('turntable.share')
     @endif
-    <!-- Bootstrap 3.3.5 -->    
-    <script src="{{ admin_asset('/turntable/swiper.jquery.min.js')}}"></script>
-    <script src="{{ admin_asset('/vendor/laravel-admin/AdminLTE/bootstrap/js/bootstrap.min.js')}}"></script>
-    <script src="{{ admin_asset('/vendor/laravel-admin/sweetalert/dist/sweetalert.min.js')}}"></script>
-    <script src="{{ admin_asset('/vendor/laravel-admin/toastr/build/toastr.min.js')}}"></script>
-    <script src="{{ admin_asset('/turntable/h5_game_common.js')}}"></script>
-    <script src="{{ admin_asset('/turntable/index.js')}}"></script>
-    
-   </body>
+<!-- Bootstrap 3.3.5 -->    
+<script src="{{ admin_asset('/turntable/swiper.jquery.min.js')}}"></script>
+<script src="{{ admin_asset('/vendor/laravel-admin/AdminLTE/bootstrap/js/bootstrap.min.js')}}"></script>
+<script src="{{ admin_asset('/vendor/laravel-admin/sweetalert/dist/sweetalert.min.js')}}"></script>
+<script src="{{ admin_asset('/vendor/laravel-admin/toastr/build/toastr.min.js')}}"></script>
+<script src="{{ admin_asset('/turntable/h5_game_common.js')}}"></script>
+<script src="{{ admin_asset('/turntable/index.js')}}"></script>
+
+</body>
 </html>
 {{Log::info('页面结束')}}
