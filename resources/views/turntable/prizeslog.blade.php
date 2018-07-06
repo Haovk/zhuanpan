@@ -1,10 +1,15 @@
 
 <div class="">
-<div class="panel-heading text-center  turntableinfotop">中奖名单</div>
+<div class="text-center  turntableinfotop">中奖名单</div>
     <div class="panel-body">
         <div class="row">
             <div class="col-xs-12">
-                <ul class="demo2" style="overflow-y: hidden; height: 20px;">	
+                <ul class="demo2" style="background-color: #000;
+    color: #009FFF;
+    border-radius: 10px;
+    overflow-y: hidden;
+    height: 1rem;
+    line-height: 1rem;">	
                 <li style="display:none;" class="news-item text-center">恭喜 获得</li>									
                 </ul>
             </div>
