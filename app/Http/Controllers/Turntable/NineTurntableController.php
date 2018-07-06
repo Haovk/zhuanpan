@@ -16,26 +16,34 @@ use Carbon\Carbon;
 
 class NineTurntableController extends Controller
 {
+    public function auth(Request $request)
+    {
+        if (!isset($request->code)) {
+            $url=trim(config('app.url'),'/').'/nineturntable';
+            $authurl=config('wechat.unifiedauthurl');
+            return redirect(trim($authurl,'/').'?redirect_uri='.$url);
+        }
+    }
     public function index(Request $request)
     {
-        //$app = app('wechat.official_account');        
+        if (!isset($request->code)) {
+            //$url=trim(config('app.url'),'/').'/nineturntable';
+            $url=$request->url();
+            $authurl=config('wechat.unifiedauthurl');
+            return redirect(trim($authurl,'/').'?redirect_uri='.$url);
+        }
+        $app = app('wechat.official_account');
         //回调后获取user时也要设置$request对象
-        //$user = $app->oauth->user();
+        $user = $app->oauth->user();
         //$user=session('wechat.oauth_user.default');
-        Log::info(Carbon::now());
         $turntable=Turntable::where([['Id','=',$request->id],['StartTime','<=',Carbon::now()],['EndTime','>=',Carbon::now()]])
         ->first();
-        Log::info('转盘信息'.json_encode($turntable));
         if (!$turntable) {
-            Log::info('转盘不存在');
             return view('turntable.turntabletongzhi', ['msg'=>'转盘已过期或没有该转盘']);
         }
-        $tuser=$turntable->turntableUsers->where('OpenId', 'opHtjtyZvH46Niy64-Xx6vn6OWmU')->first();
-        Log::info('用户信息'.json_encode($tuser));
-        if (!$tuser) { 
-            Log::info('用户不存在');
+        $tuser=$turntable->turntableUsers->where('OpenId', $user->id)->first();
+        if (!$tuser) {
             if ($turntable->IsPlaceUserNumber==1&&$turntable->turntableUsers->count()>=$turntable->UserNumber) {
-                Log::info('转盘用户上限');  
                 //是否限制参与人数且参与人数已经达到设定值
                 return view('turntable.turntabletongzhi', ['msg'=>'该转盘用户已达到上限']);
             }
@@ -48,11 +56,9 @@ class NineTurntableController extends Controller
             $turntable->turntableUsers()->save($newTUser);
         }
         if ($turntable->IsShare==1) {
-            Log::info('分享开启');            
-            //Log::info(view('turntable.nineturntable', ['app'=>$app,'turntable'=>$turntable,'tuser'=>$tuser])->getContent());    
+            //Log::info(view('turntable.nineturntable', ['app'=>$app,'turntable'=>$turntable,'tuser'=>$tuser])->getContent());
             return view('turntable.nineturntable', ['app'=>$app,'turntable'=>$turntable,'tuser'=>$tuser]);
         }
-        Log::info('请求结束');     
         return view('turntable.nineturntable', ['turntable'=>$turntable,'tuser'=>$tuser]);
     }
     public function shareinfo(Request $request)

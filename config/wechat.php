@@ -37,6 +37,7 @@ return [
         ],
     ],
 
+    'unifiedauthurl'=> env('UNIFIED_AUTH_URL', 'http://agent-apple.jj850.com'),
     /*
     * 开发模式下的免授权模拟授权用户资料
     *

@@ -15,13 +15,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//Route::any('/nineturntable', 'Turntable\NineTurntableController@index');
-//Route::any('/TurntableLoading', 'Turntable\NineTurntableController@TurntableLoading');
-
-Route::group(['middleware' => ['web','wechat.oauth:snsapi_userinfo']], function () {
-    
-    
-});
 Route::any('/nineturntable', 'Turntable\NineTurntableController@index');    
 Route::any('/nineturntable/getitem', 'Turntable\NineTurntableController@getitem');
 Route::any('/nineturntable/bindUser', 'Turntable\NineTurntableController@bindUser');
