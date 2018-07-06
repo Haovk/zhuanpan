@@ -159,8 +159,8 @@ class NineTurntableController extends Controller
         $user = session('wechat.oauth_user.default');
         $turntable=Turntable::find($request->id);//获取转盘信息
         $tuser=$turntable->turntableUsers->where('OpenId', $user->id)->first();//获取当前用户信息
-        $prizeLogs=$tuser->prizeLogs->orderBy('IsGive','ase')
-        ->orderBy('CreateTime','desc')
+        $prizeLogs=$tuser->prizeLogs->orderBy('prizeLogs.IsGive','asc')
+        ->orderBy('prizeLogs.CreateTime','desc')
         ->all();
         return json_encode($prizeLogs);
     }
