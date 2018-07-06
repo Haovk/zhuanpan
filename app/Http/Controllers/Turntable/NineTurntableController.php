@@ -36,8 +36,8 @@ class NineTurntableController extends Controller
         $app = app('wechat.official_account');
         //回调后获取user时也要设置$request对象
         $user = $app->oauth->user();
-        Log::info(json_encode($user));
-        session()->put('wechat.oauth_user',$user);
+        
+        //session()->put('wechat.oauth_user',$user);
         //$user=session('wechat.oauth_user.default');
         $turntable=Turntable::where([['Id','=',$request->id],['StartTime','<=',Carbon::now()],['EndTime','>=',Carbon::now()]])
         ->first();
@@ -45,6 +45,7 @@ class NineTurntableController extends Controller
             return view('turntable.turntabletongzhi', ['msg'=>'转盘已过期或没有该转盘']);
         }
         $tuser=$turntable->turntableUsers->where('OpenId', $user->id)->first();
+        Log::info(json_encode($tuser));
         if (!$tuser) {
             if ($turntable->IsPlaceUserNumber==1&&$turntable->turntableUsers->count()>=$turntable->UserNumber) {
                 //是否限制参与人数且参与人数已经达到设定值
@@ -66,7 +67,8 @@ class NineTurntableController extends Controller
     }
     public function shareinfo(Request $request)
     {
-        $user = session('wechat.oauth_user.default');
+        $user = $app->oauth->user();
+        //$user = session('wechat.oauth_user.default');
         $turntable=Turntable::find($request->id);
         $tuser=$turntable->turntableUsers->where('OpenId', $user->id)->first();
         if ($turntable->IsShare==1&&$tuser->ShareNumber>0) {
@@ -82,7 +84,8 @@ class NineTurntableController extends Controller
     }
     public function bindUser(Request $request)
     {
-        $user = session('wechat.oauth_user.default');
+        $user = $app->oauth->user();
+        //$user = session('wechat.oauth_user.default');
         $msgArr=['Status'=>20001,'Message'=>'绑定错误'];
         $turntable=Turntable::find($request->id);
         $tuser=$turntable->turntableUsers->where('OpenId', $user->id)->first();
@@ -95,7 +98,8 @@ class NineTurntableController extends Controller
     }
     public function getitem(Request $request)
     {
-        $user = session('wechat.oauth_user.default');
+        $user = $app->oauth->user();
+        //$user = session('wechat.oauth_user.default');
         $msgArr=['Status'=>20001,'Item'=>-1,'Message'=>'未知错误'];
         $turntable=Turntable::where('StartTime','<=',Carbon::now())
         ->where('EndTime','>=',Carbon::now())
@@ -167,7 +171,8 @@ class NineTurntableController extends Controller
     }
     public function getTickets(Request $request)
     {
-        $user = session('wechat.oauth_user.default');
+        $user = $app->oauth->user();
+        //$user = session('wechat.oauth_user.default');
         $turntable=Turntable::find($request->id);//获取转盘信息
         $tuser=$turntable->turntableUsers->where('OpenId', $user->id)->first();//获取当前用户信息
         $prizeLogs=$tuser->prizeLogs->orderBy('prizeLogs.IsGive','asc')
