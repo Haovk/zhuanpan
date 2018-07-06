@@ -174,7 +174,7 @@ class NineTurntableController extends Controller
         $tuser=$turntable->turntableUsers->where('OpenId', $user->id)->first();//获取当前用户信息
         $prizeLogs=$tuser->prizeLogs->where('IsGive',0)
         ->orderBy('prizeLogs.CreateTime','desc')
-        -get();
+        ->get();
         return json_encode($prizeLogs);
     }
     public function getAllTickets(Request $request)
