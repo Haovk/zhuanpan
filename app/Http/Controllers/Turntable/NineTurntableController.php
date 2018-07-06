@@ -18,7 +18,10 @@ class NineTurntableController extends Controller
 {
     public function index(Request $request)
     {
-        $user = session('wechat.oauth_user.default');
+        $app = Factory::officialAccount(config('wechat.official_account'));        
+        //回调后获取user时也要设置$request对象
+        $user = $app->oauth->setRequest($request)->user();
+        //$user = session('wechat.oauth_user.default');
         Log::info(Carbon::now());
         $turntable=Turntable::where([['Id','=',$request->id],['StartTime','<=',Carbon::now()],['EndTime','>=',Carbon::now()]])
         ->first();
@@ -45,8 +48,7 @@ class NineTurntableController extends Controller
             $turntable->turntableUsers()->save($newTUser);
         }
         if ($turntable->IsShare==1) {
-            Log::info('分享开启');
-            $app = app('wechat.official_account');
+            Log::info('分享开启');            
             //Log::info(view('turntable.nineturntable', ['app'=>$app,'turntable'=>$turntable,'tuser'=>$tuser])->getContent());    
             return view('turntable.nineturntable', ['app'=>$app,'turntable'=>$turntable,'tuser'=>$tuser]);
         }
