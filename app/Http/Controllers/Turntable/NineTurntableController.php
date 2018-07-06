@@ -67,6 +67,7 @@ class NineTurntableController extends Controller
     }
     public function shareinfo(Request $request)
     {
+        $app = app('wechat.official_account');
         $user = $app->oauth->user();
         //$user = session('wechat.oauth_user.default');
         $turntable=Turntable::find($request->id);
@@ -84,6 +85,7 @@ class NineTurntableController extends Controller
     }
     public function bindUser(Request $request)
     {
+        $app = app('wechat.official_account');
         $user = $app->oauth->user();
         //$user = session('wechat.oauth_user.default');
         $msgArr=['Status'=>20001,'Message'=>'绑定错误'];
@@ -98,6 +100,7 @@ class NineTurntableController extends Controller
     }
     public function getitem(Request $request)
     {
+        $app = app('wechat.official_account');
         $user = $app->oauth->user();
         //$user = session('wechat.oauth_user.default');
         $msgArr=['Status'=>20001,'Item'=>-1,'Message'=>'未知错误'];
@@ -171,6 +174,7 @@ class NineTurntableController extends Controller
     }
     public function getTickets(Request $request)
     {
+        $app = app('wechat.official_account');
         $user = $app->oauth->user();
         //$user = session('wechat.oauth_user.default');
         $turntable=Turntable::find($request->id);//获取转盘信息
