@@ -28,7 +28,7 @@ class NineTurntableController extends Controller
     {
         if (!isset($request->code)) {
             //$url=trim(config('app.url'),'/').'/nineturntable'; 
-            urlencode($url=$request->url());
+            $url=urlencode($request->url());
             $authurl=config('wechat.unifiedauthurl');
             Log::info(trim($authurl,'/').'/wxauth/auth?redirecturi='.$url);
             return redirect(trim($authurl,'/').'/wxauth/auth?redirecturi='.$url);
