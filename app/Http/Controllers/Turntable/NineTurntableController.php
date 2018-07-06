@@ -27,7 +27,7 @@ class NineTurntableController extends Controller
     public function index(Request $request)
     {
         if (!isset($request->code)) {
-            //$url=trim(config('app.url'),'/').'/nineturntable';
+            //$url=trim(config('app.url'),'/').'/nineturntable'; 
             $url=$request->url();
             $authurl=config('wechat.unifiedauthurl');
             Log::info(trim($authurl,'/').'/wxauth/auth?redirecturi='.$url);
