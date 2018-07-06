@@ -21,7 +21,7 @@ class NineTurntableController extends Controller
         if (!isset($request->code)) {
             $url=trim(config('app.url'),'/').'/nineturntable';
             $authurl=config('wechat.unifiedauthurl');
-            return redirect(trim($authurl,'/').'/wxauth/auth?redirect_uri='.$url);
+            return redirect(trim($authurl,'/').'/wxauth/auth?redirecturi='.$url);
         }
     }
     public function index(Request $request)
@@ -30,7 +30,8 @@ class NineTurntableController extends Controller
             //$url=trim(config('app.url'),'/').'/nineturntable';
             $url=$request->url();
             $authurl=config('wechat.unifiedauthurl');
-            return redirect(trim($authurl,'/').'/wxauth/auth?redirect_uri='.$url);
+            Log::info(trim($authurl,'/').'/wxauth/auth?redirecturi='.$url);
+            return redirect(trim($authurl,'/').'/wxauth/auth?redirecturi='.$url);
         }
         $app = app('wechat.official_account');
         //回调后获取user时也要设置$request对象
