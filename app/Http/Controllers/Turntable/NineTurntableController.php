@@ -18,7 +18,7 @@ class NineTurntableController extends Controller
 {
     public function index(Request $request)
     {
-        $app = Factory::officialAccount(config('wechat.official_account'));        
+        $app = Factory::officialAccount(app('wechat.official_account'));        
         //回调后获取user时也要设置$request对象
         $user = $app->oauth->setRequest($request)->user();
         //$user = session('wechat.oauth_user.default');
