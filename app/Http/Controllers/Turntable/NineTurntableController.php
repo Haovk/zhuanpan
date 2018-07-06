@@ -37,7 +37,7 @@ class NineTurntableController extends Controller
         //回调后获取user时也要设置$request对象
         $user = $app->oauth->user();
         
-        //session()->put('wechat.oauth_user',$user);
+        session()->put('wechat.oauth_user.default',$user);
         //$user=session('wechat.oauth_user.default');
         $turntable=Turntable::where([['Id','=',$request->id],['StartTime','<=',Carbon::now()],['EndTime','>=',Carbon::now()]])
         ->first();
@@ -67,9 +67,7 @@ class NineTurntableController extends Controller
     }
     public function shareinfo(Request $request)
     {
-        $app = app('wechat.official_account');
-        $user = $app->oauth->user();
-        //$user = session('wechat.oauth_user.default');
+        $user = session('wechat.oauth_user.default');
         $turntable=Turntable::find($request->id);
         $tuser=$turntable->turntableUsers->where('OpenId', $user->id)->first();
         if ($turntable->IsShare==1&&$tuser->ShareNumber>0) {
@@ -100,9 +98,7 @@ class NineTurntableController extends Controller
     }
     public function getitem(Request $request)
     {
-        $app = app('wechat.official_account');
-        $user = $app->oauth->user();
-        //$user = session('wechat.oauth_user.default');
+        $user = session('wechat.oauth_user.default');
         $msgArr=['Status'=>20001,'Item'=>-1,'Message'=>'未知错误'];
         $turntable=Turntable::where('StartTime','<=',Carbon::now())
         ->where('EndTime','>=',Carbon::now())
@@ -174,9 +170,7 @@ class NineTurntableController extends Controller
     }
     public function getTickets(Request $request)
     {
-        $app = app('wechat.official_account');
-        $user = $app->oauth->user();
-        //$user = session('wechat.oauth_user.default');
+        $user = session('wechat.oauth_user.default');
         $turntable=Turntable::find($request->id);//获取转盘信息
         $tuser=$turntable->turntableUsers->where('OpenId', $user->id)->first();//获取当前用户信息
         $prizeLogs=$tuser->prizeLogs->orderBy('prizeLogs.IsGive','asc')
