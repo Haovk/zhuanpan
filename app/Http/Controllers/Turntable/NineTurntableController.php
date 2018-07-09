@@ -111,9 +111,10 @@ class NineTurntableController extends Controller
             })->toArray();
             //中奖率数组
             $prizeRates=$turntable->prizes->map(function ($prize) {
-                return round($prize->PrizeRate*0.01,4);
+                return sprintf("%01.4f",$prize->PrizeRate*0.01);
             })->toArray();
             Log::info(json_encode($prizeRates));
+            Log::info(array_sum($prizeRates)==1.0);
             $alias=new AliasMethod($prizeRates);
             $item=$alias->next_rand();
             $tuser->PrizeNumber--;//剩余抽奖次数

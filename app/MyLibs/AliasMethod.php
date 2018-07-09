@@ -18,12 +18,12 @@ class AliasMethod
         $this->length = count($pdf);  
         if($this->length == 0)  
             die("pdf is empty");  
-        if(array_sum($pdf) != 1.0)  
+        if(sprintf("%01.4f",array_sum($pdf)) != 1.0000)
             die("pdf sum not equal 1, sum:".array_sum($pdf));  
   
-        $small = $large = array();  
+        $small = $large = array();
 		$average=1.0/$this->length;
-        for ($i=0; $i < $this->length; $i++)   
+        for ($i=0; $i < $this->length; $i++)
         {   
             $pdf[$i] *= $this->length;  
             if($pdf[$i] < $average)  
@@ -47,7 +47,7 @@ class AliasMethod
         }  
   
         while(!empty($small))  
-            $this->prob_arr[array_shift($small)] = 1.0;  
+            $this->prob_arr[array_shift($small)] = 1.0;
         while (!empty($large))  
             $this->prob_arr[array_shift($large)] = 1.0;  
     }  
