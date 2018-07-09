@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Foundation\Inspiring;
-
 /*
 |--------------------------------------------------------------------------
 | Console Routes
@@ -17,10 +16,3 @@ Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->describe('Display an inspiring quote');
 
-
-Artisan::command('resetturntableuser', function () {
-    $dbh = DB::connection()->getPdo();
-    $procName = "resetturntableuser";
-    $stmt = $dbh->prepare("EXEC $procName");
-    $r = $stmt->execute();
-});

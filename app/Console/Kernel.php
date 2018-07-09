@@ -4,7 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-
+use Illuminate\Support\Facades\DB;
 class Kernel extends ConsoleKernel
 {
     /**
@@ -27,10 +27,15 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')
         //          ->hourly();
 
-        // $schedule->command('inspire')->everyTenMinutes();
+        $schedule->command('inspire')->everyTenMinutes();
 
         //$schedule->command('route:list')->dailyAt('02:00');
-        $schedule->command('resetturntableuser')->dailyAt('00:00')->description('重置转盘抽奖次数');
+        //$schedule->command('resetturntableuser')->dailyAt('00:00');
+        $schedule->call(function(){
+            $dbh = DB::connection()->getPdo();            
+            $stmt = $dbh->prepare("call resetturntableuser()");
+            $r = $stmt->execute();
+        })->dailyAt('00:00')->description('重置转盘抽奖次数');
     }
 
     /**

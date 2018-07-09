@@ -18,7 +18,7 @@ class AliasMethod
         $this->length = count($pdf);  
         if($this->length == 0)  
             die("pdf is empty");  
-        if(sprintf("%01.4f",array_sum($pdf)) != 1.0000)
+        if(array_sum($pdf) != 1.0000)
             die("pdf sum not equal 1, sum:".array_sum($pdf));  
   
         $small = $large = array();
