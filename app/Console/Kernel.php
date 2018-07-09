@@ -26,6 +26,11 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+
+        // $schedule->command('inspire')->everyTenMinutes();
+
+        //$schedule->command('route:list')->dailyAt('02:00');
+        $schedule->command('resetturntableuser')->dailyAt('00:00')->description('重置转盘抽奖次数');
     }
 
     /**

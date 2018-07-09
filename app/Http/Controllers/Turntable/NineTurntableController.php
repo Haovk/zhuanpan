@@ -28,7 +28,7 @@ class NineTurntableController extends Controller
         //$url=trim(config('app.url'),'/').'/nineturntable'; 
         $url=urlencode($request->getUri());
         $authurl=config('wechat.unifiedauthurl');
-        Log::info(trim($authurl,'/').'/wxauth/auth?redirecturi='.$url);
+        //Log::info(trim($authurl,'/').'/wxauth/auth?redirecturi='.$url);
         return redirect(trim($authurl,'/').'/wxauth/auth?redirecturi='.$url);
         
     }
@@ -45,7 +45,7 @@ class NineTurntableController extends Controller
             return view('turntable.turntabletongzhi', ['msg'=>'转盘已过期或没有该转盘']);
         }
         $tuser=$turntable->turntableUsers->where('OpenId', $user->id)->first();
-        Log::info(json_encode($tuser));
+        //Log::info(json_encode($tuser));
         if (!$tuser) {
             if ($turntable->IsPlaceUserNumber==1&&$turntable->turntableUsers->count()>=$turntable->UserNumber) {
                 //是否限制参与人数且参与人数已经达到设定值
@@ -54,7 +54,8 @@ class NineTurntableController extends Controller
             $newTUser=new TurntableUser([
                 'OpenId'=>$user->id,
                 'NickName'=>$user->nickname,
-                'PrizeNumber'=>$turntable->Number
+                'PrizeNumber'=>$turntable->Number,
+                'ShareNumber'=>$turntable->UserShareNumber
             ]);
             $tuser=$newTUser;
             $turntable->turntableUsers()->save($newTUser);
