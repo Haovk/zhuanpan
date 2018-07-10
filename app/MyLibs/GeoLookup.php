@@ -3,6 +3,7 @@ namespace App\MyLibs;
 
 use GeoIp2\Database\Reader;
 use Illuminate\Support\Facades\Storage;
+use GeoIp2\Exception\GeoIp2Exception;
 use Log;
 
 class GeoLookup {
@@ -26,13 +27,13 @@ class GeoLookup {
         {
             //address is not found
             //do not throw exceptions
-            Log::warning("GeoIP2Exception", exc);
+            Log::warning("GeoIP2Exception".json_encode($exc));
             return '';
         }
         catch (Exception $exc)
         {
             //do not throw exceptions
-            Log::warning("Exception", exc);
+            Log::warning("Exception".json_encode($exc));
             return '';
         }
     }
@@ -40,10 +41,14 @@ class GeoLookup {
     public function LookupCityName($ip)
     {
         $response = $this->GetCityInformation($ip);
-        if (isset($response->city))
+        if ($response==='') {
+            return '';
+        }
+        if (isset($response->city)) {
             return $response->subdivisions[0]->names["zh-CN"]
-            .$response->city->names["zh-CN"];
-
+        .$response->city->names["zh-CN"];
+        }
+        
         return '';
     }
 }
