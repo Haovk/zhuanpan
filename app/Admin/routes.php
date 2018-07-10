@@ -15,4 +15,5 @@ Route::group([
     $router->resource('Turntable', TurntableController::class);
     $router->resource('PrizeLog', PrizeLogController::class);
     $router->resource('TurntableUser', TurntableUserController::class);
+    $router->post('PrizeLog/prizegive', 'PrizeLogController@prizegive');
 });
