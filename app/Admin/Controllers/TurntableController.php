@@ -132,9 +132,9 @@ class TurntableController extends Controller
                 $form->switch('LotteryType', '抽奖类型')->states($states2)->help('固定次数:每个账号抽奖次数 周期次数:账号每天抽奖次数');
                 $form->number('Number', '抽奖次数')->help('固定次数:每个账号抽奖次数 周期次数:账号每天抽奖次数');
                 $form->switch('IsShowPrizeName', '是否显示中奖名单')->states($states)->help('是否显示用户的中奖滚动信息');
-                $form->switch('IsPlacePrizeNumber', '是否限制中奖次数')->states($states)->help('每个用户在当前转盘的永久总中奖次数');  
+                $form->switch('IsPlacePrizeNumber', '是否限制中奖次数')->states($states)->help('是否限制每个用户在当前转盘的总中奖次数');  
                 $form->number('PrizeNumber', '中奖次数')->help('每个用户在当前转盘的永久总中奖次数');      
-                $form->switch('IsPlaceUserNumber', '是否限制参与人数')->states($states)->help('当前转盘可以参加的人数');         
+                $form->switch('IsPlaceUserNumber', '是否限制参与人数')->states($states)->help('是否限制人数参与当前转盘');         
                 $form->number('UserNumber', '参与人数')->help('当前转盘可以参加的人数'); 
                 $form->file('BackMusicPath', '背景音乐')->help('抽奖页面背景音乐要求MP3格式');
             })->tab('分享设置',function($form){
