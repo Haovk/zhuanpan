@@ -98,10 +98,14 @@ class NineTurntableController extends Controller
     public function getitem(Request $request)
     {
         $user = session('wechat.oauth_user.default');
+        if (!$user) {
+            return redirect()->route('wxauth', ['id'=>$request->id]);
+        }
         $msgArr=['Status'=>20001,'Item'=>-1,'Message'=>'未知错误'];
-        $turntable=Turntable::where('StartTime','<=',Carbon::now())
-        ->where('EndTime','>=',Carbon::now())
-        ->where('Id',$request->id)
+        try {
+            $turntable=Turntable::where('StartTime', '<=', Carbon::now())
+        ->where('EndTime', '>=', Carbon::now())
+        ->where('Id', $request->id)
         ->firstOrFail();//获取转盘信息
         $tuser=$turntable->turntableUsers->where('OpenId', $user->id)->first();//获取当前用户信息
         if ($tuser&&$tuser->PrizeNumber>0) {//判断当前用户是否存在抽奖次数
@@ -111,7 +115,7 @@ class NineTurntableController extends Controller
             })->toArray();
             //中奖率数组
             $prizeRates=$turntable->prizes->map(function ($prize) {
-                return sprintf("%01.4f",$prize->PrizeRate*0.01);
+                return sprintf("%01.4f", $prize->PrizeRate*0.01);
             })->toArray();
             Log::info(json_encode($prizeRates));
             Log::info(array_sum($prizeRates)==1.0);
@@ -126,7 +130,7 @@ class NineTurntableController extends Controller
                 //符合条件一律指定为未中奖
                 $nprize=$turntable->prizes->where('IsExChange', 0)->first();
                 if ($nprize) {
-                    $item=array_search($nprize->Id,$prizeRatesById);
+                    $item=array_search($nprize->Id, $prizeRatesById);
                 }
             }
             
@@ -136,13 +140,14 @@ class NineTurntableController extends Controller
                 //符合条件一律指定为未中奖
                 $nprize=$turntable->prizes->where('IsExChange', 0)->first();
                 if ($nprize) {
-                    $item=array_search($nprize->Id,$prizeRatesById);
+                    $item=array_search($nprize->Id, $prizeRatesById);
                 }
+                //更换奖品为谢谢惠顾
                 $prize = $turntable->prizes->find($prizeRatesById[$item]);
             }
-            $prize->PrizeUserNumber++;//已中奖人数
+            $prize->PrizeUserNumber++;//累加奖品已中奖人数
             $prize->save();
-            if ($prize->IsExChange) {//该奖品是否可以进行兑换
+            if ($prize->IsExChange==1) {//该奖品是否可以进行兑换（不是谢谢惠顾）
                 //Log::info($prize->toJson());
                 $str_time = $this->dec62($this->msectime());
                 // 8位随机字符串
@@ -157,16 +162,17 @@ class NineTurntableController extends Controller
                 $tuser->prizeLogs()->save($prizeLog);
             }
             $msgArr=['Status'=>20000,'Item'=>$item,'Number'=>$tuser->PrizeNumber,'Message'=>'成功'];
-        }
-        else
-        {
+        } else {
             if ($turntable->IsShare==1) {
                 $msgArr=['Status'=>20002,'Item'=>-1,'Message'=>'转盘次数不足,每日分享链接可获得额外的抽奖次数'];
             } else {
                 $msgArr=['Status'=>20002,'Item'=>-1,'Message'=>'转盘次数不足'];
             }
         }
-        return json_encode($msgArr);
+            return json_encode($msgArr);
+        } catch (Exception $exc) {
+            Log::warning('抽奖时出错'.$exc->getMessage());
+        }
     }
     public function getTickets(Request $request)
     {

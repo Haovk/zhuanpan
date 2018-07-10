@@ -27,13 +27,13 @@ class GeoLookup {
         {
             //address is not found
             //do not throw exceptions
-            Log::warning("GeoIP2Exception".$exc->message);
+            Log::warning("GeoIP2Exception".$exc->getMessage());
             return '';
         }
         catch (Exception $exc)
         {
             //do not throw exceptions
-            Log::warning("Exception".$exc->message);
+            Log::warning("Exception".$exc->getMessage());
             return '';
         }
     }
