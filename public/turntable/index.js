@@ -58,10 +58,13 @@ $(function () {
         if($('#uid').val()==0){
             bindUser();
             bool = true;
+            init();
             return;
         }
         random=getItem();
         if(random==-1){
+            bool = true;
+            init();
             return;
         }
         var newmark=random;
