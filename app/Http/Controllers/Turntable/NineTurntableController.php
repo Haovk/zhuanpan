@@ -10,8 +10,8 @@ use App\Models\TurntableUser;
 use App\Models\Prize;
 use App\Models\PrizeLog;
 use Log;
-use App\MyLibs\AliasMethod;
-use App\MyLibs\GeoLookup;
+use AliasMethodFacade;
+use GeoLookupFacade;
 use Carbon\Carbon;
 
 class NineTurntableController extends Controller
@@ -115,8 +115,8 @@ class NineTurntableController extends Controller
             })->toArray();
             Log::info(json_encode($prizeRates));
             Log::info(array_sum($prizeRates)==1.0);
-            $alias=new AliasMethod($prizeRates);
-            $item=$alias->next_rand();
+            $item=AliasMethodFacade::next_rand($prizeRates);
+            //$item=$alias->next_rand();
             $tuser->PrizeNumber--;//剩余抽奖次数
             $tuser->PrizeNumberSum++;//历史抽奖次数
             $tuser->save();
@@ -153,8 +153,7 @@ class NineTurntableController extends Controller
                 $prizeLog->PrizeCode=$code;
                 $prizeLog->ExpiresTime=Carbon::now()->addDays($prize->ExpiresDay);
                 $prizeLog->IPAddress=$request->getClientIp();
-                $geo=new GeoLookup;
-                $prizeLog->IPAddressName=$geo->LookupCityName($request->getClientIp());
+                $prizeLog->IPAddressName=GeoLookupFacade::LookupCityName($request->getClientIp());
                 $tuser->prizeLogs()->save($prizeLog);
             }
             $msgArr=['Status'=>20000,'Item'=>$item,'Number'=>$tuser->PrizeNumber,'Message'=>'成功'];

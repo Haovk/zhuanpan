@@ -1,18 +1,19 @@
 <?php  
-namespace App\MyLibs;
+namespace App\Facades;
 
 class AliasMethod  
 {  
     private $length;  
     private $prob_arr;  
     private $alias;  
-    
+  
     // public function __construct ($pdf)  
     // {  
-        
+    //     $this->length = 0;  
+    //     $this->prob_arr = $this->alias = array();  
     //     $this->_init($pdf);  
     // }  
-    public function init($pdf)  
+    private function init($pdf)
     {  
         $this->length = 0;  
         $this->prob_arr = $this->alias = array();  
@@ -52,8 +53,9 @@ class AliasMethod
         while (!empty($large))  
             $this->prob_arr[array_shift($large)] = 1.0;  
     }  
-    public function next_rand()  
+    public function next_rand($pdf)  
     {  
+        $this->init($pdf);
         $column = mt_rand(0, $this->length - 1);  
         return mt_rand() / mt_getrandmax() < $this->prob_arr[$column] ? $column : $this->alias[$column];  
     }  

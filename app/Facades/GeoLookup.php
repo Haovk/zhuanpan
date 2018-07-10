@@ -1,5 +1,5 @@
 <?php
-namespace App\MyLibs;
+namespace App\Facades;
 
 use GeoIp2\Database\Reader;
 use Illuminate\Support\Facades\Storage;
