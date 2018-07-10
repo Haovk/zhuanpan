@@ -26,12 +26,13 @@ class GeoLookup {
         {
             //address is not found
             //do not throw exceptions
+            Log::warning("GeoIP2Exception", exc);
             return '';
         }
         catch (Exception $exc)
         {
             //do not throw exceptions
-            Log::warning("Cannot load MaxMind record", exc);
+            Log::warning("Exception", exc);
             return '';
         }
     }

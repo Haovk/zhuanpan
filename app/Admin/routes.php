@@ -13,4 +13,6 @@ Route::group([
     $router->get('/', 'HomeController@index');
 
     $router->resource('Turntable', TurntableController::class);
+    $router->resource('PrizeLog', PrizeLogController::class);
+    $router->resource('TurntableUser', TurntableUserController::class);
 });

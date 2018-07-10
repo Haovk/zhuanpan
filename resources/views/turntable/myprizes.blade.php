@@ -198,7 +198,7 @@ svg:not(:root) {
             </div>
         </div>
     </div>
-    <script src="https://cdn.bootcss.com/jquery-weui/1.2.0/js/jquery-weui.min.js"></script>
+    <script src="{{ admin_asset('/turntable/jquery-weui.min.js') }}"></script>
 <script>
     $(function(){
         $('#my-ticket').on('click',function(){
