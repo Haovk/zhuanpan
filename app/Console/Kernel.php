@@ -33,9 +33,9 @@ class Kernel extends ConsoleKernel
         //$schedule->command('resetturntableuser')->dailyAt('00:00');
         $schedule->call(function(){
             $dbh = DB::connection()->getPdo();            
-            $stmt = $dbh->prepare("call resetturntableuser()");
+            $stmt = $dbh->prepare("call resetturntableuser();");
             $r = $stmt->execute();
-        })->dailyAt('00:00')->description('重置转盘抽奖次数以及分享次数');
+        })->daily()->description('重置转盘抽奖次数以及分享次数');
     }
 
     /**
